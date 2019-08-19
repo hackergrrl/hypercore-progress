@@ -34,16 +34,18 @@ test('basic', t => {
 
               setTimeout(() => {
                 var r1 = core2.replicate()
-                var p1 = progress(core2, r1, 2)
+                var p1 = progress(core2, r1)
                 var last1
-                p1.on('progress', info => {
+                p1.on('progress', (id, info) => {
+                  console.log(1, id, info)
                   last1 = info
                 })
 
                 var r2 = core3.replicate() 
-                var p2 = progress(core3, r2, 3)
+                var p2 = progress(core3, r2)
                 var last2
-                p2.on('progress', info => {
+                p2.on('progress', (id, info) => {
+                  console.log(2, id, info)
                   last2 = info
                 })
 

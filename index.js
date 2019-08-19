@@ -4,8 +4,14 @@ var rle = require('bitfield-rle').align(4)
 
 module.exports = progress
 
-function progress (feed, stream, id) {
-  var peer = stream.feeds[0].peer
+function progress (feed, stream) {
+  var ev = new EventEmitter()
+  stream.feeds.forEach(listen.bind(null, ev, feed))
+  return ev
+}
+
+function listen (ev, feed, vfeed, feedIdx) {
+  var peer = vfeed.peer
   var onhave = peer.onhave.bind(peer)
 
   var toDownload = bitfield()
@@ -13,18 +19,18 @@ function progress (feed, stream, id) {
   var downloaded=0, uploaded=0
   var downloadTotal=0, uploadTotal=0
 
-  var ev = new EventEmitter()
+  var key = feed.key.toString('hex').slice(0, 6)
 
   feed.on('download', idx => {
     if (toDownload.get(idx)) {
       downloaded++
-      ev.emit('progress', { up: { sofar: uploaded, total: uploadTotal }, down: { sofar: downloaded, total: downloadTotal } })
+      ev.emit('progress', feed, { up: { sofar: uploaded, total: uploadTotal }, down: { sofar: downloaded, total: downloadTotal } })
     }
   })
   feed.on('upload', idx => {
     if (toUpload.get(idx)) {
       uploaded++
-      ev.emit('progress', { up: { sofar: uploaded, total: uploadTotal }, down: { sofar: downloaded, total: downloadTotal } })
+      ev.emit('progress', feed, { up: { sofar: uploaded, total: uploadTotal }, down: { sofar: downloaded, total: downloadTotal } })
     }
   })
 
