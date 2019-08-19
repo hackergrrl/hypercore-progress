@@ -13,12 +13,17 @@
     "test": "tape test/*.js",
     "lint": "standard"
   },
-  "keywords": [
-  ],
-  "dependencies": {},
+  "keywords": [],
+  "dependencies": {
+    "bitfield-rle": "^2.2.1",
+    "fast-bitfield": "^1.2.2"
+  },
   "devDependencies": {
-    "tape": "~4.6.2",
-    "standard": "~10.0.0"
+    "hypercore": "^7.6.1",
+    "pump": "^3.0.0",
+    "random-access-memory": "^3.1.1",
+    "standard": "~10.0.0",
+    "tape": "~4.6.2"
   },
   "license": "ISC"
 }
