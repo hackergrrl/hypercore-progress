@@ -5,6 +5,10 @@ var rle = require('bitfield-rle').align(4)
 module.exports = progress
 
 function progress (feed, stream) {
+  if (stream.live) {
+    throw new Error('live replication streams are not (yet) supported')
+  }
+
   var ev = new EventEmitter()
   stream.feeds.forEach(listen.bind(null, ev, feed))
   return ev
