@@ -7,7 +7,7 @@ mode is *off*. However, when using sparse mode, download progress should remain
 accurate, but upload progress can be inaccurate. This is due to how the
 hypercore protocol works: the remote peer doesn't have to explicitly name the
 blocks it wants -- it can provide a range of wants that may include blocks it
-already possesses.
+already possesses. Live streams aren't yet supported either.
 
 ## Usage
 
