@@ -2,7 +2,12 @@
 
 > track the sync progress of non-sparse hypercore replication
 
-TODO: background details relevant to understanding what this module does
+**N.B.** This should give accurate download and upload progress when sparse
+mode is *off*. However, when using sparse mode, download progress should remain
+accurate, but upload progress can be inaccurate. This is due to how the
+hypercore protocol works: the remote peer doesn't have to explicitly name the
+blocks it wants -- it can provide a range of wants that may include blocks it
+already possesses.
 
 ## Usage
 
