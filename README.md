@@ -1,6 +1,8 @@
 # hypercore-progress
 
-> track the sync progress of a non-sparse non-live hypercore replication stream
+> Track the sync progress of a non-sparse non-live hypercore replication stream.
+
+This module lets you wrap a hypercore
 
 **N.B.** Designed for `hypercore@8`
 
@@ -34,13 +36,13 @@ core1.ready(() => {
 })
 
 function sync () {
-  var r1 = core1.replicate()
-  progress(r1).on('progress', (status) => {
+  var r1 = core1.replicate(true)
+  progress(core1, r1).on('progress', (status) => {
     console.log('core1', status)
   })
 
-  var r2 = core2.replicate()
-  progress(r1).on('progress', (status) => {
+  var r2 = core2.replicate(false)
+  progress(core2, r2).on('progress', (status) => {
     console.log('core1', status)
   })
 
@@ -68,11 +70,11 @@ done
 var progress = require('hypercore-progress')
 ```
 
-### var tracker = progress(stream)
+### var tracker = progress(feed, stream)
 
-Wraps a [`hypercore-protocol`](https://github.com/mafintosh/hypercore-protocol)
-stream and tracks upload and download progress of the hypercores it is
-replicating.
+Wraps a hypercore and a particular
+[`hypercore-protocol`](https://github.com/mafintosh/hypercore-protocol) stream
+and tracks upload and download progress of the hypercores it is replicating.
 
 ### tracker.on('progress', (state) => {})
 
@@ -97,7 +99,7 @@ $ npm install hypercore-progress
 
 ## Caveats
 
-This module is pretty hacky and makes some assumptions:
+This module makes some assumptions:
 
 1. "live" replication mode is not being used
 2. "sparse" replication mode is not being used
