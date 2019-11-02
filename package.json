@@ -19,7 +19,7 @@
     "fast-bitfield": "^1.2.2"
   },
   "devDependencies": {
-    "hypercore": "^7.6.1",
+    "hypercore": "^8.2.6",
     "pump": "^3.0.0",
     "random-access-memory": "^3.1.1",
     "standard": "~10.0.0",

@@ -10,12 +10,18 @@ function progress (feed, stream) {
   }
 
   var ev = new EventEmitter()
-  stream.feeds.forEach(listen.bind(null, ev, feed))
+  feed.peers.forEach(function (peer) {
+    var iter = stream.channels
+    var res
+    while ((res = iter.next()) && !res.done) {
+      var chan = res.value
+      if (peer.stream === chan) listen(ev, feed, peer)
+    }
+  })
   return ev
 }
 
-function listen (ev, feed, vfeed, feedIdx) {
-  var peer = vfeed.peer
+function listen (ev, feed, peer) {
   var onhave = peer.onhave.bind(peer)
 
   var toDownload = bitfield()
