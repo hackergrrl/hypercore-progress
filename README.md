@@ -1,6 +1,8 @@
 # hypercore-progress
 
-> track the sync progress of non-sparse hypercore replication
+> track the sync progress of a non-sparse non-live hypercore replication stream
+
+**N.B.** Designed for `hypercore@8`
 
 **N.B.** This should give accurate download and upload progress when sparse
 mode is *off*. However, when using sparse mode, download progress should remain
